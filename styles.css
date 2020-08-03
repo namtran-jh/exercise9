@@ -470,7 +470,7 @@
     }
 }
 
-@media only screen and (min-width: 1600px) {
+@media only screen and (min-width: 1200px) {
     .detailRight {
         justify-content: flex-start;
     }
@@ -526,6 +526,7 @@
 @media only screen and (min-width: 1200px) {
     .detailRight p {
         font-size: 10px;
+        margin-top: 10px
     }
 }
 
