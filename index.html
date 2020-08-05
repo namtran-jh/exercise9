@@ -26,14 +26,27 @@
                 </div>
             </div>
             <div class="mastheadMain">
-                <div class="mastheadMain-icon">
-                    <img src="./images/icon/flaticon/email24px.png" alt="email" />
+                <img id="masthead1Background" src="./images/masthead/masthead1.png" alt="background" draggable="true" />
+                <div id="masthead1Button" class="mastheadMain-icon">
+                    <img id="dragButton" src="./images/icon/flaticon/drag24px.png" alt="drag" />
+                    <img id="mailButton" src="./images/icon/flaticon/email24px.png" alt="email" />
                 </div>
-                <div class="mastheadMain-title">
+                <div id="masthead1Zoom">
+                    <button id="zoomIn" onclick="zoomInEffect()"><img src="./images/icon/flaticon/image32px.png" alt="zoom in"/></button>
+                    <div id="zoomBar">
+                        <input class="slider" id="sliderRange" type="range" min="1" max="100" value="1" oninput="changeSliderRange()" />
+                    </div>
+                    <button id="zoomOut" onclick="zoomOutEffect()"><img src="./images/icon/flaticon/image24px.png" alt="zoom out"/></button>
+                </div>
+                <div id="masthead1SaveClose">
+                    <button id="save" onclick="saveReposition()"><img src="./images/icon/flaticon/save24px.png" alt="save" title="Save changes"/></button>
+                    <button id="close" onclick="closeReposition()"><img src="./images/icon/flaticon/close24px.png" alt="close" title="Close reposition"/></button>
+                </div>
+                <div id="masthead1Title" class="mastheadMain-title">
                     <img src="./images/masthead/masthead1-symbol.png" alt="masthead" />
                     <h1>PAINT <br> YOUR <br> PIXTURE</h1>
                 </div>
-                <div class="mastheadMain-detail">
+                <div id="masthead1Detail" class="mastheadMain-detail">
                     <div class="detailLeft">
                         <div class="detailLeft-title">
                             <h2>Humble Beginings</h2>
@@ -50,6 +63,15 @@
             </div>
         </div>
 
+        <!-- 0. notification -->
+        <div class="notification">
+            <div id="warning" class="notiBox">
+                <p><strong>Warning!</strong> You didn't save anything. Goodbye...</p>
+            </div>
+            <div id="success" class="notiBox">
+                <p><strong>Success!</strong> Saved your changes...</p>
+            </div>
+        </div>
     </div>
 
     <!-- Script -->
