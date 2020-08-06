@@ -1,3 +1,4 @@
+// Get natualWidth and offsetWidth of background image
 const imgNatW = document.getElementById("masthead1Background").naturalWidth;
 const imgOffW = document.getElementById("masthead1Background").offsetWidth;
 
@@ -12,9 +13,14 @@ const backgroundImage = {
 // Declare temporary variables for saving size and slider range when modifying background image
 let tmpSize = backgroundImage.size;
 let tmpSliderRange = backgroundImage.sliderRange;
+let tmpTop = backgroundImage.top;
+let tmpLeft = backgroundImage.left;
 
 // Declare interval for zoomIn/zoomOut background's effect
-let zoomInInterval, zoomOutInterval;
+let zoomInInterval, zoomOutInterval, lefttopTimeout;
+
+// Declare variable for catching event (switch state)
+let draggableImage = false;
 
 // Declare left top of background image
 const containerW = document.getElementsByClassName("mastheadMain")[0].offsetWidth,
@@ -27,17 +33,23 @@ let imageH = containerH - document.getElementById("masthead1Background").offsetH
     if (localStorage.getItem("backgroundImage")) {
         let data = JSON.parse(localStorage.getItem("backgroundImage"));
         backgroundImage.size = tmpSize = data.size;
-        document.getElementById("sliderRange").value = backgroundImage.sliderRange = tmpSliderRange = data.sliderRange;
-        backgroundImage.top = data.top;
-        backgroundImage.left = data.left;
+        backgroundImage.sliderRange = tmpSliderRange = data.sliderRange;
+        backgroundImage.top = tmpTop = data.top;
+        backgroundImage.left = tmpLeft = data.left;
         document.getElementById("masthead1Background").style.width = `${data.size}%`;
+        document.getElementById("sliderRange").value = data.sliderRange;
+        document.getElementById("masthead1Background").style.top = `${data.top}px`;
+        document.getElementById("masthead1Background").style.left = `${data.left}px`;
     }
 })();
+
+lefttopTimeout = setTimeout(updateLeftTop, 1000);
 
 // Function update left top of background image
 function updateLeftTop() {
     imageW = containerW - document.getElementById("masthead1Background").offsetWidth;
     imageH = containerH - document.getElementById("masthead1Background").offsetHeight;
+    clearTimeout(lefttopTimeout);
 }
 
 // Function fade in target
@@ -115,7 +127,7 @@ function zoomInEffect() {
 
 // btn zoomOut effect
 function zoomOutEffect() {
-    document.getElementById("sliderRange").value = 0;
+    document.getElementById("sliderRange").value = 1;
     changeSliderRange();
 }
 
@@ -126,22 +138,24 @@ function changeSliderRange() {
     const zoomOut = document.getElementById("zoomOut");
 
     if (sliderRange == 100) {
-        resize(document.getElementById("masthead1Background"), sliderRange);
         tmpSliderRange = 100;
+        resize(document.getElementById("masthead1Background"), sliderRange);
         zoomIn.style.opacity = "1.0";
-        updateLeftTop();
+        lefttopTimeout = setTimeout(updateLeftTop, 2000);
         return;
     } else { zoomIn.style.opacity = ".5" };
     if (sliderRange == 1) {
-        resize(document.getElementById("masthead1Background"), sliderRange);
         tmpSliderRange = 1;
+        reposition(document.getElementById("masthead1Background"), sliderRange);
+        resize(document.getElementById("masthead1Background"), sliderRange);
         zoomOut.style.opacity = "1.0";
-        updateLeftTop();
+        lefttopTimeout = setTimeout(updateLeftTop, 2000);
         return;
     } else { zoomOut.style.opacity = ".5" };
 
     zoomImage(parseInt(backgroundImage.size), parseInt(sliderRange));
     updateLeftTop();
+    setImagePosition(document.getElementById("masthead1Background"));
 }
 
 // handle zoom image
@@ -151,21 +165,22 @@ function zoomImage(size, sliderRange) {
     document.getElementById("masthead1Background").style.width = `${tmpSize}%`;
 }
 
-// handle drag picture (top/bottom/left/right)
-function dragPicture() {
-
-}
-
 // handle save changes
 function saveReposition() {
-    // close reposition with fade effect
+    // close reposition with fade effect and switch draggable mode + update imageW, imageH
     fadeClosingEffect();
+    switchDragMode();
+    lefttopTimeout = setTimeout(updateLeftTop, 1000);
 
     // set values: set value of slider; size and position of background image
     backgroundImage.sliderRange = tmpSliderRange;
     backgroundImage.size = tmpSize;
+    backgroundImage.top = tmpTop;
+    backgroundImage.left = tmpLeft;
     document.getElementById("sliderRange").value = backgroundImage.sliderRange;
     document.getElementById("masthead1Background").style.width = `${backgroundImage.size}%`;
+    document.getElementById("masthead1Background").style.top = `${backgroundImage.top}px`;
+    document.getElementById("masthead1Background").style.left = `${backgroundImage.left}px`;
 
     // alert notification
     showNotification("success");
@@ -176,12 +191,16 @@ function saveReposition() {
 
 // handle close this function
 function closeReposition() {
-    // close reposition with fade effect
+    // close reposition with fade effect and switch draggable mode + update imageW, imageH
     fadeClosingEffect();
+    switchDragMode();
+    lefttopTimeout = setTimeout(updateLeftTop, 2000);
 
     // reset values: set value of slider; size and position of background image
+    draggableImage = false;
     tmpSliderRange = backgroundImage.sliderRange;
     document.getElementById("sliderRange").value = backgroundImage.sliderRange;
+    reposition(document.getElementById("masthead1Background"));
     resize(document.getElementById("masthead1Background"));
 
     // alert notification
@@ -249,69 +268,129 @@ function resize(target, point) {
     }
 }
 
-document.getElementById("dragButton").addEventListener('click', function() {
-    fadeOpeningEffect();
-    dragElement(document.getElementById("masthead1Background"));
-});
+// reposition background image
+function reposition(target, point) {
+    const reposition = setInterval(function() {
+        if (point) {
+            console.log(tmpTop, tmpLeft);
+            if (tmpTop < 0) {
+                if (tmpTop < -10 && tmpTop % 2 === 0) tmpTop += 10;
+                else if (tmpTop < -10 && tmpTop % 2 !== 0) tmpTop += 11;
+                else tmpTop++;
+                target.style.top = `${tmpTop}px`;
+            }
+            if (tmpLeft < 0) {
+                if (tmpLeft < -10 && tmpLeft % 2 === 0) tmpLeft += 10;
+                else if (tmpLeft < -10 && tmpLeft % 2 !== 0) tmpLeft += 11;
+                else tmpLeft++;
+                target.style.left = `${tmpLeft}px`;
+            }
+            if (tmpTop === 0 && tmpLeft === 0) clearInterval(reposition);
+        } else {
+            if (tmpTop > backgroundImage.top) {
+                if (tmpTop > backgroundImage.top + 10 && tmpTop % 2 === 0) tmpTop -= 10;
+                else if (tmpTop > backgroundImage.top + 10 && tmpTop % 2 !== 0) tmpTop -= 11;
+                else tmpTop--;
+                target.style.top = `${tmpTop}px`;
+            } else if (tmpTop < backgroundImage.top) {
+                if (tmpTop < backgroundImage.top - 10 && tmpTop % 2 === 0) tmpTop += 10;
+                else if (tmpTop < backgroundImage.top - 10 && tmpTop % 2 !== 0) tmpTop += 11;
+                else tmpTop++;
+                target.style.top = `${tmpTop}px`;
+            }
+            if (tmpLeft > backgroundImage.left) {
+                if (tmpLeft > backgroundImage.top + 10 && tmpLeft % 2 === 0) tmpLeft -= 10;
+                else if (tmpLeft > backgroundImage.top + 10 && tmpLeft % 2 !== 0) tmpLeft -= 11;
+                else tmpLeft--;
+                target.style.left = `${tmpLeft}px`;
+            } else if (tmpLeft < backgroundImage.left) {
+                if (tmpLeft < backgroundImage.top - 10 && tmpLeft % 2 === 0) tmpLeft += 10;
+                else if (tmpLeft < backgroundImage.top - 10 && tmpLeft % 2 !== 0) tmpLeft += 11;
+                else tmpLeft++;
+                target.style.left = `${tmpLeft}px`;
+            }
+            if (tmpTop === backgroundImage.top && tmpLeft === backgroundImage.left) clearInterval(reposition);
+        }
+    }, 6)
+}
 
-/*
-document.getElementById("masthead1Background").addEventListener('mousemove', function() {
-    console.log("now");
-});
+// set new position for image
+function setImagePosition(element, pos1, pos2) {
+    if (!pos1) pos1 = 0;
+    if (!pos2) pos2 = 0;
 
-document.getElementById("masthead1Background").addEventListener('mouseup', function() {
-    dragPicture();
-});
-*/
+    if (parseInt(element.style.top) < parseInt(imageH)) {
+        element.style.top = `${imageH}px`;
+        tmpTop = imageH;
+    } else if (parseInt(element.style.top) > 0) {
+        element.style.top = "0px";
+        tmpTop = 0;
+    } else {
+        element.style.top = `${element.offsetTop - pos2}px`;
+        tmpTop = element.offsetTop - pos2;
+    }
+    if (parseInt(element.style.left) < parseInt(imageW)) {
+        element.style.left = `${imageW}px`;
+        tmpLeft = imageW;
+    } else if (parseInt(element.style.left) > 0) {
+        element.style.left = "0px";
+        tmpLeft = 0;
+    } else {
+        element.style.left = `${element.offsetLeft - pos1}px`;
+        tmpLeft = element.offsetLeft - pos1;
+    }
+}
 
-function dragElement(elmnt) {
+// switch draggableImage to the others
+function switchDragMode() {
+    draggableImage = !draggableImage;
+    if (draggableImage) document.getElementById("masthead1Background").style.cursor = "move";
+    else document.getElementById("masthead1Background").style.cursor = "default";
+}
+
+// handle drag image (top/bottom/left/right)
+function dragPicture() {
+    const element = document.getElementById("masthead1Background");
     var pos1 = 0,
         pos2 = 0,
         pos3 = 0,
         pos4 = 0;
-    document.getElementById("masthead1Background").onmousedown = dragMouseDown;
+
+    element.onmousedown = dragMouseDown;
 
     function dragMouseDown(e) {
         e = e || window.event;
         e.preventDefault();
-        // get the mouse cursor position at startup:
+        // get the mouse cursor position at startup
         pos3 = e.clientX;
         pos4 = e.clientY;
         document.onmouseup = closeDragElement;
-        // call a function whenever the cursor moves:
-        document.onmousemove = elementDrag;
+        // call a function whenever the cursor moves
+        if (draggableImage === true) document.onmousemove = elementDrag;
     }
 
     function elementDrag(e) {
         e = e || window.event;
         e.preventDefault();
-        // calculate the new cursor position:
+        // calculate the new cursor position
         pos1 = pos3 - e.clientX;
         pos2 = pos4 - e.clientY;
         pos3 = e.clientX;
         pos4 = e.clientY;
-        // set the element's new position:
-        if (parseInt(elmnt.style.top) < parseInt(imageH)) {
-            elmnt.style.top = imageH + "px";
-        } else if (parseInt(elmnt.style.top) > 0) {
-            elmnt.style.top = "0px";
-        } else { elmnt.style.top = (elmnt.offsetTop - pos2) + "px"; }
-        if (parseInt(elmnt.style.left) < parseInt(imageW)) {
-            elmnt.style.left = imageW + "px";
-        } else if (parseInt(elmnt.style.left) > 0) {
-            elmnt.style.left = "0px";
-        } else { elmnt.style.left = (elmnt.offsetLeft - pos1) + "px"; }
-        console.log({ top: elmnt.style.top, left: elmnt.style.left })
-            // elmnt.style.top = (elmnt.offsetTop - pos2) + "px";
-            // elmnt.style.left = (elmnt.offsetLeft - pos1) + "px";
+        // set the image's new position
+        setImagePosition(element, pos1, pos2);
     }
 
     function closeDragElement() {
-        /* stop moving when mouse button is released:*/
+        // stop moving when mouse button is released
         document.onmouseup = null;
         document.onmousemove = null;
     }
 }
 
-// use a variable catch event to switch state on of draggable
-// catch event mousedown, mousemove (drag), mouseup
+// GAME START
+document.getElementById("dragButton").addEventListener('click', function() {
+    fadeOpeningEffect(); // zoom
+    switchDragMode(); // move
+    dragPicture(); // move
+});

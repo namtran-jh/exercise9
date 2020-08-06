@@ -209,11 +209,11 @@
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
-    background-image: url("./images/masthead/masthead1.png");
+    /* background-image: url("./images/masthead/masthead1.png"); */
     /* background-attachment: fixed; */
-    background-position: 0% 0%;
-    background-repeat: no-repeat;
-    background-size: 100%;
+    /* background-position: 0% 0%; */
+    /* background-repeat: no-repeat; */
+    /* background-size: 100%; */
     overflow: hidden;
 }
 
@@ -225,7 +225,6 @@
     position: absolute;
     top: 0px;
     left: 0px;
-    cursor: move;
 }
 
 .mastheadMain-icon {
