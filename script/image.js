@@ -43,7 +43,7 @@ let imageH = containerH - document.getElementById("masthead1Background").offsetH
     }
 })();
 
-lefttopTimeout = setTimeout(updateLeftTop, 1000);
+lefttopTimeout = setTimeout(updateLeftTop, 500);
 
 // Function update left top of background image
 function updateLeftTop() {
@@ -86,7 +86,7 @@ function changeZIndex(array) {
     const zIndex = setTimeout(function() {
         array.forEach(val => document.getElementById(val).style.zIndex = "-1");
         clearTimeout(zIndex);
-    }, 1000);
+    }, 500);
 }
 
 // btn fade content above on background img and appear all reposition-btn
@@ -154,8 +154,9 @@ function changeSliderRange() {
     } else { zoomOut.style.opacity = ".5" };
 
     zoomImage(parseInt(backgroundImage.size), parseInt(sliderRange));
-    updateLeftTop();
+    lefttopTimeout = setTimeout(updateLeftTop, 1);
     setImagePosition(document.getElementById("masthead1Background"));
+    setUIPosition(document.getElementById("masthead1Background"));
 }
 
 // handle zoom image
@@ -228,12 +229,12 @@ function resize(target, point) {
             if (point == 1) {
                 clearInterval(zoomInInterval);
                 clearInterval(zoomOutInterval);
-                zoomOutInterval = setInterval(zoomOut, 10);
+                zoomOutInterval = setInterval(zoomOut, 5);
             }
             if (point == 100) {
                 clearInterval(zoomInInterval);
                 clearInterval(zoomOutInterval);
-                zoomInInterval = setInterval(zoomIn, 10);
+                zoomInInterval = setInterval(zoomIn, 5);
             }
             clearInterval(resize);
         } else {
@@ -247,7 +248,7 @@ function resize(target, point) {
                 clearInterval(resize);
             }
         }
-    }, 10)
+    }, 5)
 
     function zoomOut() {
         if (tmpSize > 99) {
@@ -311,7 +312,7 @@ function reposition(target, point) {
             }
             if (tmpTop === backgroundImage.top && tmpLeft === backgroundImage.left) clearInterval(reposition);
         }
-    }, 6)
+    }, 3)
 }
 
 // set new position for image
@@ -319,7 +320,7 @@ function setImagePosition(element, pos1, pos2) {
     if (!pos1) pos1 = 0;
     if (!pos2) pos2 = 0;
 
-    if (parseInt(element.style.top) < parseInt(imageH)) {
+    /* if (parseInt(element.style.top) < parseInt(imageH)) {
         element.style.top = `${imageH}px`;
         tmpTop = imageH;
     } else if (parseInt(element.style.top) > 0) {
@@ -328,8 +329,12 @@ function setImagePosition(element, pos1, pos2) {
     } else {
         element.style.top = `${element.offsetTop - pos2}px`;
         tmpTop = element.offsetTop - pos2;
-    }
-    if (parseInt(element.style.left) < parseInt(imageW)) {
+    } */
+
+    tmpTop = element.offsetTop - pos2;
+    element.style.top = `${element.offsetTop - pos2}px`;
+
+    /* if (parseInt(element.style.left) < parseInt(imageW)) {
         element.style.left = `${imageW}px`;
         tmpLeft = imageW;
     } else if (parseInt(element.style.left) > 0) {
@@ -338,7 +343,18 @@ function setImagePosition(element, pos1, pos2) {
     } else {
         element.style.left = `${element.offsetLeft - pos1}px`;
         tmpLeft = element.offsetLeft - pos1;
-    }
+    } */
+
+    tmpLeft = element.offsetLeft - pos1;
+    element.style.left = `${element.offsetLeft - pos1}px`;
+}
+
+// set UI Position
+function setUIPosition(element) {
+    if (tmpTop > 0) element.style.top = `0px`;
+    if (tmpTop < parseInt(imageH)) element.style.top = `${imageH}px`;
+    if (tmpLeft > 0) element.style.left = `0px`;
+    if (tmpLeft < parseInt(imageW)) element.style.left = `${imageW}px`;
 }
 
 // switch draggableImage to the others
@@ -382,6 +398,8 @@ function dragPicture() {
     }
 
     function closeDragElement() {
+        setUIPosition(element);
+
         // stop moving when mouse button is released
         document.onmouseup = null;
         document.onmousemove = null;

@@ -17,6 +17,8 @@
 @media only screen and (min-width: 768px) {
     #container {
         background-image: url("./images/background.png");
+        background-size: cover;
+        background-repeat: no-repeat;
     }
 }
 
@@ -36,15 +38,15 @@
     flex-direction: column;
     justify-content: center;
     align-items: flex-end;
-    line-height: 5px;
-    padding: 250px 12px;
+    line-height: 6px;
+    padding: 250px 16px;
     transform: rotate(180deg);
     -webkit-transform: rotate(180deg);
 }
 
 @media only screen and (min-width: 600px) {
     .mastheadNav {
-        padding: 150px 12px;
+        padding: 150px 16px;
     }
 }
 
@@ -96,7 +98,7 @@
 }
 
 .mastheadNav p {
-    font-size: 5px;
+    font-size: 6px;
     text-transform: uppercase;
     writing-mode: vertical-rl;
     margin-top: 30px;
@@ -118,14 +120,14 @@
 
 @media only screen and (min-width: 1600px) {
     .mastheadNav p {
-        font-size: 16px;
+        font-size: 12px;
         margin-top: 90px;
         margin-bottom: 10px;
     }
 }
 
 .mastheadNav h4 {
-    font-size: 4px;
+    font-size: 5px;
     text-transform: uppercase;
     color: #b5bbc4;
     writing-mode: vertical-rl;
@@ -145,7 +147,7 @@
 
 @media only screen and (min-width: 1600px) {
     .mastheadNav h4 {
-        font-size: 13px;
+        font-size: 10px;
     }
 }
 
@@ -218,13 +220,19 @@
 }
 
 #masthead1Background {
-    width: 100%;
+    width: auto;
     min-width: 100%;
     min-height: 100%;
     max-width: unset;
     position: absolute;
     top: 0px;
     left: 0px;
+}
+
+@media only screen and (min-width: 600px) {
+    .masthead1Background {
+        width: 100%;
+    }
 }
 
 .mastheadMain-icon {
@@ -634,7 +642,7 @@
 
 @media only screen and (min-width: 1600px) {
     .detailLeft-title h2 {
-        font-size: 32px;
+        font-size: 24px;
         font-weight: 700;
     }
 }
@@ -676,13 +684,13 @@
 
 @media only screen and (min-width: 1200px) {
     .detailLeft p {
-        font-size: 13px;
+        font-size: 10px;
     }
 }
 
 @media only screen and (min-width: 1600px) {
     .detailLeft p {
-        font-size: 17px;
+        font-size: 13px;
     }
 }
 
@@ -762,19 +770,1227 @@
 @media only screen and (min-width: 1200px) {
     .detailRight p {
         font-size: 10px;
-        margin-top: 10px
+        margin-top: 10px;
     }
 }
 
 @media only screen and (min-width: 1600px) {
     .detailRight p {
-        font-size: 17px;
+        font-size: 13px;
         margin-top: 25px;
+        font-weight: 300;
     }
 }
 
 
-/* 0. notification */
+/* Card Scroller 1 */
+
+.cardScroller {
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+    margin-bottom: 20px;
+}
+
+.cardScrollerTitle {
+    font-size: 12px;
+    padding: 20px 0px 20px 80px;
+    color: #fff;
+    text-transform: uppercase;
+    display: none;
+}
+
+@media only screen and (min-width: 768px) {
+    .cardScrollerTitle {
+        display: block;
+    }
+}
+
+@media only screen and (min-width: 1200px) {
+    .cardScrollerTitle {
+        padding: 35px 0px 35px 120px;
+        font-size: 18px;
+    }
+}
+
+@media only screen and (min-width: 1600px) {
+    .cardScrollerTitle {
+        padding: 50px 0px 50px 200px;
+        font-size: 18px;
+    }
+}
+
+.cardScrollerTitle p {
+    font-weight: 500;
+}
+
+.cardScrollerMain {
+    display: flex;
+    flex-direction: row;
+    padding: 32px 12px 32px 0;
+}
+
+@media only screen and (min-width: 600px) {
+    .cardScrollerMain {
+        padding: 35px 20px 15px 0;
+    }
+}
+
+@media only screen and (min-width: 768px) {
+    .cardScrollerMain {
+        padding: 0 35px;
+    }
+}
+
+@media only screen and (min-width: 1200px) {
+    .cardScrollerMain {
+        padding: 0;
+    }
+}
+
+.cardScrollerMain-list {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: row-reverse;
+    overflow: scroll;
+}
+
+.cardScrollerList {
+    display: flex;
+    flex-direction: row-reverse;
+}
+
+.cardScrollerMain-cardCarousel {
+    width: 325px;
+    margin-left: 15px;
+}
+
+@media only screen and (min-width: 600px) {
+    .cardScrollerMain-cardCarousel {
+        width: 300px;
+        margin-left: 20px;
+    }
+}
+
+@media only screen and (min-width: 1200px) {
+    .cardScrollerMain-cardCarousel {
+        width: 350px;
+    }
+}
+
+@media only screen and (min-width: 1600px) {
+    .cardScrollerMain-cardCarousel {
+        width: 400px;
+    }
+}
+
+.cardCarousel {
+    display: flex;
+    flex-direction: column;
+}
+
+.cardCarousel-background {
+    position: relative;
+    overflow: hidden;
+    height: 175px;
+    clip-path: polygon(0 0, 0 88%, 6% 100%, 100% 100%, 100% 0);
+}
+
+@media only screen and (min-width: 600px) {
+    .cardCarousel-background {
+        height: 150px;
+        clip-path: polygon(0 0, 0 92%, 5% 100%, 100% 100%, 100% 0);
+    }
+}
+
+@media only screen and (min-width: 1200px) {
+    .cardCarousel-background {
+        height: 175px;
+        clip-path: polygon(0 0, 0 90%, 5% 100%, 100% 100%, 100% 0);
+    }
+}
+
+@media only screen and (min-width: 1200px) {
+    .cardCarousel-background {
+        height: 200px;
+    }
+}
+
+.cardCarousel-backgroundImage {
+    width: auto;
+    position: absolute;
+    transition: transform 1.0s;
+    max-width: unset;
+}
+
+@media only screen and (min-width: 1600px) {
+    .cardCarousel-backgroundImage {
+        width: 100%;
+        transition: width 1.0s;
+    }
+}
+
+.cardCarousel-backgroundImage:hover {
+    transform: scale(1.5);
+}
+
+@media only screen and (min-width: 1600px) {
+    .cardCarousel-backgroundImage:hover {
+        width: 150%;
+    }
+}
+
+.cardCarousel-backgroundReact {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 12px 15px;
+    color: #fff;
+}
+
+@media only screen and (min-width: 768px) {
+    .cardCarousel-backgroundReact {
+        padding: 20px 30px;
+    }
+}
+
+.cardCarousel-backgroundReact img {
+    width: 10px;
+    margin-right: 6px;
+}
+
+@media only screen and (min-width: 1200px) {
+    .cardCarousel-backgroundReact img {
+        width: 12px;
+        margin-right: 7px;
+    }
+}
+
+.cardCarousel-backgroundReact h4 {
+    font-size: 10px;
+    line-height: 10px;
+}
+
+@media only screen and (min-width: 1200px) {
+    .cardCarousel-backgroundReact h4 {
+        font-size: 12px;
+        line-height: 12px;
+    }
+}
+
+.cardCarousel-info {
+    height: 175px;
+    background-color: #fff;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 35px 35px 45px;
+    clip-path: polygon(0 12%, 0 100%, 100% 100%, 100% 0, 6% 0);
+}
+
+@media only screen and (min-width: 600px) {
+    .cardCarousel-info {
+        height: 150px;
+        padding: 30px 30px 40px;
+        clip-path: polygon(0 8%, 0 100%, 100% 100%, 100% 0, 5% 0);
+    }
+}
+
+@media only screen and (min-width: 768px) {
+    .cardCarousel-info {
+        height: 150px;
+        padding: 30px;
+    }
+}
+
+@media only screen and (min-width: 1200px) {
+    .cardCarousel-info {
+        height: 175px;
+        padding: 40px;
+        clip-path: polygon(0 10%, 0 100%, 100% 100%, 100% 0, 5% 0);
+    }
+}
+
+@media only screen and (min-width: 1600px) {
+    .cardCarousel-info {
+        height: 200px;
+        padding: 45px 50px 55px;
+    }
+}
+
+.cardCarousel-info h2 {
+    font-size: 21px;
+    font-weight: 600;
+}
+
+@media only screen and (min-width: 600px) {
+    .cardCarousel-info h2 {
+        font-size: 18px;
+    }
+}
+
+@media only screen and (min-width: 1200px) {
+    .cardCarousel-info h2 {
+        font-size: 22px;
+    }
+}
+
+@media only screen and (min-width: 1600px) {
+    .cardCarousel-info h2 {
+        font-size: 25px;
+    }
+}
+
+.cardCarousel-info p {
+    font-size: 11px;
+    font-weight: 500;
+    color: #677278;
+    text-align: left;
+    line-height: 1.8;
+}
+
+@media only screen and (min-width: 600px) {
+    .cardCarousel-info p {
+        font-size: 9px;
+    }
+}
+
+@media only screen and (min-width: 768px) {
+    .cardCarousel-info p {
+        font-size: 10px;
+    }
+}
+
+@media only screen and (min-width: 1200px) {
+    .cardCarousel-info p {
+        font-size: 12px;
+        line-height: 1.7;
+    }
+}
+
+@media only screen and (min-width: 1600px) {
+    .cardCarousel-info p {
+        font-size: 13px;
+        line-height: 1.5;
+    }
+}
+
+.cardCarousel-option {
+    background-color: #fff;
+    border-top: 1px solid #E5E5E5;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.cardCarousel-optionComment {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 15px 20px;
+    border-right: 1px solid #E5E5E5;
+}
+
+@media only screen and (min-width: 600px) {
+    .cardCarousel-optionComment {
+        padding: 11px 15px;
+    }
+}
+
+@media only screen and (min-width: 1200px) {
+    .cardCarousel-optionComment {
+        padding: 15px 25px;
+    }
+}
+
+@media only screen and (min-width: 1600px) {
+    .cardCarousel-optionComment {
+        padding: 20px;
+    }
+}
+
+.cardCarousel-optionComment h4 {
+    font-size: 10px;
+    font-weight: 500;
+    line-height: 15px;
+}
+
+@media only screen and (min-width: 600px) {
+    .cardCarousel-optionComment h4 {
+        font-size: 9px;
+        line-height: 13px;
+    }
+}
+
+@media only screen and (min-width: 1200px) {
+    .cardCarousel-optionComment h4 {
+        font-size: 10px;
+        line-height: 15px;
+    }
+}
+
+@media only screen and (min-width: 1600px) {
+    .cardCarousel-optionComment h4 {
+        font-size: 12px;
+        line-height: 20px;
+    }
+}
+
+.cardCarousel-optionComment img {
+    width: 15px;
+    margin-right: 10px;
+}
+
+@media only screen and (min-width: 600px) {
+    .cardCarousel-optionComment img {
+        width: 13px;
+    }
+}
+
+@media only screen and (min-width: 1200px) {
+    .cardCarousel-optionComment img {
+        width: 15px;
+    }
+}
+
+@media only screen and (min-width: 1600px) {
+    .cardCarousel-optionComment img {
+        width: 20px;
+    }
+}
+
+.cardCarousel-optionButton {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 15px 20px;
+    background-color: #E5E5E5;
+}
+
+@media only screen and (min-width: 600px) {
+    .cardCarousel-optionButton {
+        padding: 11px 15px;
+    }
+}
+
+@media only screen and (min-width: 1200px) {
+    .cardCarousel-optionButton {
+        padding: 15px;
+    }
+}
+
+@media only screen and (min-width: 1600px) {
+    .cardCarousel-optionButton {
+        padding: 20px 25px;
+    }
+}
+
+.cardCarousel-optionButton img {
+    width: 15px;
+}
+
+@media only screen and (min-width: 600px) {
+    .cardCarousel-optionButton img {
+        width: 13px;
+    }
+}
+
+@media only screen and (min-width: 1200px) {
+    .cardCarousel-optionButton img {
+        width: 15px;
+    }
+}
+
+@media only screen and (min-width: 1600px) {
+    .cardCarousel-optionButton img {
+        width: 20px;
+    }
+}
+
+.cardScrollerMain-arrow {
+    display: none;
+    justify-content: center;
+    align-items: center;
+    padding: 0px 40px;
+}
+
+@media only screen and (min-width: 1200px) {
+    .cardScrollerMain-arrow {
+        display: flex;
+    }
+}
+
+@media only screen and (min-width: 1600px) {
+    .cardScrollerMain-arrow {
+        padding: 0px 80px;
+    }
+}
+
+.cardScrollerMain-arrow img {
+    width: 40px;
+}
+
+.cardScrollerMain-arrow img:hover {
+    cursor: pointer;
+}
+
+
+/* Masthead 2 */
+
+.masthead2Nav {
+    z-index: 1;
+    position: relative;
+    display: none;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    line-height: 15px;
+    padding: 20px 10px 100px;
+    transform: rotate(180deg);
+    -webkit-transform: rotate(180deg);
+}
+
+@media only screen and (min-width: 768px) {
+    .masthead2Nav {
+        display: flex;
+    }
+}
+
+@media only screen and (min-width: 1200px) {
+    .masthead2Nav {
+        line-height: 20px;
+        padding: 30px 15px 100px;
+    }
+}
+
+@media only screen and (min-width: 1600px) {
+    .masthead2Nav {
+        line-height: 30px;
+        padding: 80px 25px 100px;
+    }
+}
+
+.masthead2Main {
+    padding: 30px;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    background-image: url("./images/masthead/masthead2.png");
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: unset;
+}
+
+@media only screen and (min-width: 600px) {
+    .masthead2Main {
+        padding: 20px;
+    }
+}
+
+.masthead2Main-title {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 200px;
+}
+
+@media only screen and (min-width: 600px) {
+    .masthead2Main-title {
+        margin-top: 150px;
+    }
+}
+
+@media only screen and (min-width: 1200px) {
+    .masthead2Main-title {
+        margin-top: 200px;
+    }
+}
+
+@media only screen and (min-width: 1600px) {
+    .masthead2Main-title {
+        margin-top: 330px;
+    }
+}
+
+.masthead2Main-title img {
+    display: block;
+    width: 280px;
+}
+
+@media only screen and (min-width: 1200px) {
+    .masthead2Main-title img {
+        width: 400px;
+    }
+}
+
+@media only screen and (min-width: 1600px) {
+    .masthead2Main-title img {
+        width: 530px;
+    }
+}
+
+.masthead2Main-detail {
+    margin-top: 100px;
+    margin-bottom: 65px;
+}
+
+@media only screen and (min-width: 600px) {
+    .masthead2Main-detail {
+        margin-top: 70px;
+        margin-bottom: 30px;
+    }
+}
+
+@media only screen and (min-width: 768px) {
+    .masthead2Main-detail {
+        margin: 80px 20px 20px;
+    }
+}
+
+@media only screen and (min-width: 1200px) {
+    .masthead2Main-detail {
+        margin: 130px 40px 30px;
+    }
+}
+
+@media only screen and (min-width: 1600px) {
+    .masthead2Main-detail {
+        margin: 210px 50px 80px 130px;
+    }
+}
+
+.detailLeft2 {
+    align-items: center;
+}
+
+@media only screen and (min-width: 768px) {
+    .detailLeft2 {
+        align-items: unset;
+    }
+}
+
+.detailLeft2-title h2 {
+    font-size: 15px;
+}
+
+@media only screen and (min-width: 768px) {
+    .detailLeft2-title h2 {
+        font-size: 12px;
+        font-weight: 500;
+    }
+}
+
+@media only screen and (min-width: 1200px) {
+    .detailLeft-title h2 {
+        font-size: 18px;
+        font-weight: 600;
+    }
+}
+
+@media only screen and (min-width: 1600px) {
+    .detailLeft-title h2 {
+        font-size: 24px;
+        font-weight: 700;
+    }
+}
+
+.detailLeft2 p {
+    font-size: 8px;
+    text-align: center;
+}
+
+@media only screen and (min-width: 600px) {
+    .detailLeft2 p {
+        font-size: 10px;
+    }
+}
+
+@media only screen and (min-width: 768px) {
+    .detailLeft2 p {
+        font-size: 7px;
+        text-align: unset;
+    }
+}
+
+@media only screen and (min-width: 1200px) {
+    .detailLeft2 p {
+        font-size: 10px;
+    }
+}
+
+@media only screen and (min-width: 1600px) {
+    .detailLeft2 p {
+        font-size: 13px;
+    }
+}
+
+.detailRight2 {
+    display: none;
+}
+
+@media only screen and (min-width: 768px) {
+    .detailRight2 {
+        display: flex;
+    }
+}
+
+
+/* Info 1 */
+
+.info1 {
+    display: flex;
+    flex-direction: row;
+    color: #fff;
+}
+
+.info1Nav {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    line-height: 6px;
+    padding: 50px 16px;
+    transform: rotate(180deg);
+    -webkit-transform: rotate(180deg);
+}
+
+@media only screen and (min-width: 768px) {
+    .info1Nav {
+        display: flex;
+        line-height: 15px;
+        padding: 50px 10px;
+    }
+}
+
+@media only screen and (min-width: 1200px) {
+    .info1Nav {
+        line-height: 20px;
+        padding: 50px 15px;
+    }
+}
+
+@media only screen and (min-width: 1600px) {
+    .info1Nav {
+        line-height: 30px;
+        padding: 50px 25px;
+    }
+}
+
+.info1Nav p {
+    font-size: 6px;
+    text-transform: uppercase;
+    writing-mode: vertical-rl;
+}
+
+.info1Nav p>span {
+    color: #0C2539;
+}
+
+@media only screen and (min-width: 768px) {
+    .info1Nav p {
+        font-size: 7px;
+    }
+}
+
+@media only screen and (min-width: 1200px) {
+    .info1Nav p {
+        font-size: 8px;
+    }
+}
+
+@media only screen and (min-width: 1600px) {
+    .info1Nav p {
+        font-size: 12px;
+    }
+}
+
+.info1Main {
+    padding: 40px 30px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: unset;
+}
+
+@media only screen and (min-width: 600px) {
+    .info1Main {
+        padding: 30px;
+    }
+}
+
+@media only screen and (min-width: 768px) {
+    .info1Main {
+        flex-wrap: wrap;
+        padding: 35px 20px;
+        height: 360px;
+    }
+}
+
+@media only screen and (min-width: 1200px) {
+    .info1Main {
+        padding: 50px 200px 0 80px;
+        height: 320px;
+    }
+}
+
+@media only screen and (min-width: 1600px) {
+    .info1Main {
+        padding: 80px 300px 0 130px;
+        height: 360px;
+    }
+}
+
+.info1Main-paragraph {
+    width: 100%;
+    height: 50%;
+    padding: 0 0 10px 0;
+    font-size: 9px;
+    line-height: 1.5;
+    color: #D6D6D6;
+}
+
+@media only screen and (min-width: 600px) {
+    .info1Main-paragraph {
+        font-size: 12px;
+        line-height: 1.3;
+    }
+}
+
+@media only screen and (min-width: 768px) {
+    .info1Main-paragraph {
+        padding: 0 10px;
+        width: 50%;
+    }
+}
+
+@media only screen and (min-width: 1200px) {
+    .info1Main-paragraph {
+        line-height: 1.5;
+        padding: 0 10px;
+    }
+}
+
+@media only screen and (min-width: 1600px) {
+    .info1Main-paragraph {
+        font-size: 13px;
+    }
+}
+
+#para3 {
+    display: block;
+}
+
+@media only screen and (min-width: 768px) {
+    #para3 {
+        display: none;
+    }
+}
+
+#para4 {
+    display: none;
+}
+
+@media only screen and (min-width: 768px) {
+    #para4 {
+        display: block;
+    }
+}
+
+
+/* Card Scroller 2  */
+
+#cardScroller2 {
+    display: none;
+}
+
+@media only screen and (min-width: 768px) {
+    #cardScroller2 {
+        display: flex;
+    }
+}
+
+
+/* Info 2 */
+
+.info2Main {
+    padding: 30px 22px 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    color: #fff;
+}
+
+@media only screen and (min-width: 768px) {
+    .info2Main {
+        padding: 20px;
+    }
+}
+
+@media only screen and (min-width: 1200px) {
+    .info2Main {
+        padding: 50px 80px;
+        flex-direction: row;
+        align-items: flex-start;
+    }
+}
+
+@media only screen and (min-width: 1600px) {
+    .info2Main {
+        padding: 100px 200px 70px 80px;
+    }
+}
+
+.info2Main-group {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-bottom: 45px;
+}
+
+@media only screen and (min-width: 600px) {
+    .info2Main-group {
+        margin-bottom: 40px;
+    }
+}
+
+.info2Main-content {
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+    padding: 0 8px;
+}
+
+.info2Main-content h3 {
+    font-size: 12px;
+    font-weight: 600;
+    margin-bottom: 13px;
+}
+
+@media only screen and (min-width: 600px) {
+    .info2Main-content h3 {
+        font-size: 12px;
+        margin-bottom: 10px;
+    }
+}
+
+@media only screen and (min-width: 768px) {
+    .info2Main-content h3 {
+        font-size: 14px;
+    }
+}
+
+@media only screen and (min-width: 1200px) {
+    .info2Main-content h3 {
+        font-size: 20px;
+        margin-bottom: 20px;
+    }
+}
+
+@media only screen and (min-width: 1600px) {
+    .info2Main-content h3 {
+        font-size: 24px;
+        margin-bottom: 30px;
+    }
+}
+
+.info2Main-content p {
+    font-size: 7px;
+    color: #D6D6D6;
+}
+
+@media only screen and (min-width: 600px) {
+    .info2Main-content p {
+        font-size: 11px;
+        line-height: 1.5;
+    }
+}
+
+@media only screen and (min-width: 768px) {
+    .info2Main-content p {
+        font-size: 12px;
+    }
+}
+
+@media only screen and (min-width: 1200px) {
+    .info2Main-content p {
+        font-size: 13px;
+        line-height: 1.8;
+    }
+}
+
+
+/* Credit Image */
+
+.creditImage {
+    background-image: url("./images/masthead/creditimage.png");
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    color: #fff;
+    padding: 170px 0 45px 40px;
+}
+
+@media only screen and (min-width: 768px) {
+    .creditImage {
+        justify-content: center;
+        padding: 120px 70px 120px 400px;
+    }
+}
+
+@media only screen and (min-width: 1200px) {
+    .creditImage {
+        padding: 120px 70px 120px 700px;
+    }
+}
+
+.creditImage h2 {
+    font-size: 15px;
+    font-weight: 500;
+}
+
+@media only screen and (min-width: 768px) {
+    .creditImage h2 {
+        font-size: 12px;
+    }
+}
+
+@media only screen and (min-width: 1200px) {
+    .creditImage h2 {
+        font-size: 14px;
+    }
+}
+
+@media only screen and (min-width: 1600px) {
+    .creditImage h2 {
+        font-size: 16px;
+    }
+}
+
+.creditImage h1 {
+    font-size: 36px;
+    font-weight: 500;
+    margin-bottom: 15px;
+}
+
+@media only screen and (min-width: 768px) {
+    .creditImage h1 {
+        font-size: 30px;
+        margin-bottom: 12px;
+    }
+}
+
+@media only screen and (min-width: 1200px) {
+    .creditImage h1 {
+        font-size: 36px;
+        margin-bottom: 12px;
+    }
+}
+
+@media only screen and (min-width: 1600px) {
+    .creditImage h1 {
+        font-size: 40px;
+        margin-bottom: 12px;
+    }
+}
+
+.creditImage p {
+    font-size: 8px;
+    font-weight: 400;
+    color: #D6D6D6;
+    padding-right: 160px;
+}
+
+@media only screen and (min-width: 768px) {
+    .creditImage p {
+        font-size: 10px;
+        padding-right: 30px;
+    }
+}
+
+@media only screen and (min-width: 1200px) {
+    .creditImage p {
+        font-size: 12px;
+        padding-right: 150px;
+    }
+}
+
+@media only screen and (min-width: 1600px) {
+    .creditImage p {
+        font-size: 13px;
+        padding-right: 30px;
+    }
+}
+
+
+/* Footer */
+
+.footer {
+    background-color: #130325;
+    padding: 35px 32px 55px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+@media only screen and (min-width: 1200px) {
+    .footer {
+        padding: 50px 0 100px 150px;
+    }
+}
+
+@media only screen and (min-width: 1600px) {
+    .footer {
+        padding: 75px 0 130px 210px;
+    }
+}
+
+.footerCategory {
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 60px;
+}
+
+@media only screen and (min-width: 1200px) {
+    .footerCategory {
+        width: 70%;
+        margin-bottom: 50px;
+    }
+}
+
+@media only screen and (min-width: 1600px) {
+    .footerCategory {
+        width: 60%;
+        margin-bottom: 75px;
+    }
+}
+
+.categoryDetail {
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+    padding: 10px;
+}
+
+@media only screen and (min-width: 768px) {
+    .categoryDetail {
+        width: unset;
+        padding: 10px 20px;
+    }
+}
+
+@media only screen and (min-width: 1200px) {
+    .categoryDetail {
+        padding: 0px 20px;
+    }
+}
+
+@media only screen and (min-width: 768px) {
+    .categoryDetail-about {
+        width: 40%;
+    }
+}
+
+@media only screen and (min-width: 1200px) {
+    .categoryDetail-about {
+        width: unset;
+        width: 35%;
+    }
+}
+
+.categoryDetail h3 {
+    font-size: 9px;
+    color: #0D4363;
+    text-transform: uppercase;
+    margin-bottom: 5px;
+}
+
+@media only screen and (min-width: 1200px) {
+    .categoryDetail h3 {
+        font-size: 11px;
+        margin-bottom: 15px;
+    }
+}
+
+@media only screen and (min-width: 1600px) {
+    .categoryDetail h3 {
+        margin-bottom: 25px;
+    }
+}
+
+.categoryDetail p {
+    font-size: 9px;
+    color: #fff;
+    line-height: 1.7;
+    margin-bottom: 2px;
+}
+
+@media only screen and (min-width: 768px) {
+    .categoryDetail p {
+        font-size: 11px;
+    }
+}
+
+@media only screen and (min-width: 1200px) {
+    .categoryDetail p {
+        font-size: 13px;
+        margin-bottom: 15px;
+    }
+}
+
+.categoryDetail-contact {
+    display: none;
+}
+
+@media only screen and (min-width: 768px) {
+    .categoryDetail-contact {
+        display: flex;
+    }
+}
+
+.footerText {
+    display: flex;
+    justify-content: flex-start;
+    font-size: 6px;
+    color: #5C5B61;
+}
+
+@media only screen and (min-width: 768px) {
+    .footerText {
+        font-size: 8px;
+        padding: 0 20px;
+    }
+}
+
+@media only screen and (min-width: 1200px) {
+    .footerText {
+        font-size: 10px;
+        width: 70%;
+    }
+}
+
+@media only screen and (min-width: 1600px) {
+    .footerText {
+        font-size: 12px;
+        width: 60%;
+    }
+}
+
+
+/* Notification */
 
 .notification {
     position: absolute;
