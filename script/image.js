@@ -43,13 +43,12 @@ let imageH = containerH - document.getElementById("masthead1Background").offsetH
     }
 })();
 
-lefttopTimeout = setTimeout(updateLeftTop, 500);
+updateLeftTop();
 
 // Function update left top of background image
 function updateLeftTop() {
     imageW = containerW - document.getElementById("masthead1Background").offsetWidth;
     imageH = containerH - document.getElementById("masthead1Background").offsetHeight;
-    clearTimeout(lefttopTimeout);
 }
 
 // Function fade in target
@@ -132,29 +131,39 @@ function zoomOutEffect() {
 }
 
 // handle change slider range by moving dot
-function changeSliderRange() {
+async function changeSliderRange() {
+    // lock drag button
+    draggableImage = true;
+    switchDragMode();
+
     const sliderRange = document.getElementById("sliderRange").value;
     const zoomIn = document.getElementById("zoomIn");
     const zoomOut = document.getElementById("zoomOut");
 
     if (sliderRange == 100) {
         tmpSliderRange = 100;
-        resize(document.getElementById("masthead1Background"), sliderRange);
+        await resize(document.getElementById("masthead1Background"), sliderRange);
+        console.log("1");
         zoomIn.style.opacity = "1.0";
-        lefttopTimeout = setTimeout(updateLeftTop, 2000);
+        updateLeftTop();
+        switchDragMode();
         return;
     } else { zoomIn.style.opacity = ".5" };
     if (sliderRange == 1) {
         tmpSliderRange = 1;
-        reposition(document.getElementById("masthead1Background"), sliderRange);
-        resize(document.getElementById("masthead1Background"), sliderRange);
+        await reposition(document.getElementById("masthead1Background"), sliderRange);
+        console.log("1");
+        await resize(document.getElementById("masthead1Background"), sliderRange);
+        console.log("2");
         zoomOut.style.opacity = "1.0";
-        lefttopTimeout = setTimeout(updateLeftTop, 2000);
+        updateLeftTop();
+        switchDragMode();
         return;
     } else { zoomOut.style.opacity = ".5" };
 
     zoomImage(parseInt(backgroundImage.size), parseInt(sliderRange));
-    lefttopTimeout = setTimeout(updateLeftTop, 1);
+    updateLeftTop();
+    switchDragMode();
     setImagePosition(document.getElementById("masthead1Background"));
     setUIPosition(document.getElementById("masthead1Background"));
 }
@@ -167,12 +176,12 @@ function zoomImage(size, sliderRange) {
 }
 
 // handle save changes
-function saveReposition() {
-    // close reposition with fade effect and switch draggable mode + update imageW, imageH
-    fadeClosingEffect();
+async function saveReposition() {
+    // switch draggable mode
+    draggableImage = true;
     switchDragMode();
-    lefttopTimeout = setTimeout(updateLeftTop, 1000);
 
+    setUIPosition(document.getElementById("masthead1Background"));
     // set values: set value of slider; size and position of background image
     backgroundImage.sliderRange = tmpSliderRange;
     backgroundImage.size = tmpSize;
@@ -183,6 +192,10 @@ function saveReposition() {
     document.getElementById("masthead1Background").style.top = `${backgroundImage.top}px`;
     document.getElementById("masthead1Background").style.left = `${backgroundImage.left}px`;
 
+    // close reposition with fade effect and update imageW, imageH
+    updateLeftTop();
+    fadeClosingEffect();
+
     // alert notification
     showNotification("success");
 
@@ -191,18 +204,20 @@ function saveReposition() {
 }
 
 // handle close this function
-function closeReposition() {
-    // close reposition with fade effect and switch draggable mode + update imageW, imageH
-    fadeClosingEffect();
+async function closeReposition() {
+    // switch draggable mode
+    draggableImage = true;
     switchDragMode();
-    lefttopTimeout = setTimeout(updateLeftTop, 2000);
 
     // reset values: set value of slider; size and position of background image
-    draggableImage = false;
     tmpSliderRange = backgroundImage.sliderRange;
     document.getElementById("sliderRange").value = backgroundImage.sliderRange;
-    reposition(document.getElementById("masthead1Background"));
-    resize(document.getElementById("masthead1Background"));
+    await reposition(document.getElementById("masthead1Background"));
+    await resize(document.getElementById("masthead1Background"));
+
+    // close reposition with fade effect and update imageW, imageH
+    updateLeftTop();
+    fadeClosingEffect();
 
     // alert notification
     showNotification("warning");
@@ -223,95 +238,125 @@ function showNotification(id) {
 }
 
 // resize background image
-function resize(target, point) {
-    const resize = setInterval(function() {
-        if (point) {
-            if (point == 1) {
-                clearInterval(zoomInInterval);
-                clearInterval(zoomOutInterval);
-                zoomOutInterval = setInterval(zoomOut, 5);
-            }
-            if (point == 100) {
-                clearInterval(zoomInInterval);
-                clearInterval(zoomOutInterval);
-                zoomInInterval = setInterval(zoomIn, 5);
-            }
-            clearInterval(resize);
-        } else {
-            if (tmpSize > backgroundImage.size) {
+function zoomOut(target) {
+    return new Promise(resolve => {
+        const zoomOutInterval = setInterval(function() {
+            if (tmpSize > 99) {
                 tmpSize--;
                 target.style.width = `${tmpSize}%`;
-            } else if (tmpSize < backgroundImage.size) {
+            } else {
+                clearInterval(zoomOutInterval);
+                resolve("done");
+            }
+        }, 5)
+    })
+}
+
+function zoomIn(target) {
+    return new Promise(resolve => {
+        const zoomInInterval = setInterval(function() {
+            if (tmpSize < 200) {
                 tmpSize++;
                 target.style.width = `${tmpSize}%`;
             } else {
-                clearInterval(resize);
+                clearInterval(zoomInInterval);
+                resolve("done");
             }
-        }
-    }, 5)
+        }, 5)
+    })
+}
 
-    function zoomOut() {
-        if (tmpSize > 99) {
-            tmpSize--;
-            target.style.width = `${tmpSize}%`;
-        } else {
-            clearInterval(zoomOutInterval);
-        }
-    }
+function resize(target, point) {
+    console.log("d");
+    return new Promise(resolve => {
+        console.log("e");
+        const resize = setInterval(async function() {
+            console.log("f");
+            if (point) {
+                if (point == 1) {
+                    clearInterval(zoomInInterval);
+                    clearInterval(zoomOutInterval);
+                    await zoomOut(target);
+                }
+                if (point == 100) {
+                    clearInterval(zoomInInterval);
+                    clearInterval(zoomOutInterval);
+                    await zoomIn(target);
+                }
+                clearInterval(resize);
+                resolve("done");
+            } else {
+                if (tmpSize > backgroundImage.size) {
+                    tmpSize--;
+                    target.style.width = `${tmpSize}%`;
+                } else if (tmpSize < backgroundImage.size) {
+                    tmpSize++;
+                    target.style.width = `${tmpSize}%`;
+                } else {
+                    clearInterval(resize);
+                    resolve("done");
+                }
+            }
+        }, 5)
+    })
 
-    function zoomIn() {
-        if (tmpSize < 200) {
-            tmpSize++;
-            target.style.width = `${tmpSize}%`;
-        } else {
-            clearInterval(zoomInInterval);
-        }
-    }
+
 }
 
 // reposition background image
 function reposition(target, point) {
-    const reposition = setInterval(function() {
-        if (point) {
-            if (tmpTop < 0) {
-                if (tmpTop < -10 && tmpTop % 2 === 0) tmpTop += 10;
-                else if (tmpTop < -10 && tmpTop % 2 !== 0) tmpTop += 11;
-                else tmpTop++;
-                target.style.top = `${tmpTop}px`;
+    console.log("a")
+    return new Promise(resolve => {
+        console.log("b");
+        const reposition = setInterval(function() {
+            console.log("c");
+            if (point) {
+                if (tmpTop < 0) {
+                    if (tmpTop < -10 && tmpTop % 2 === 0) tmpTop += 10;
+                    else if (tmpTop < -10 && tmpTop % 2 !== 0) tmpTop += 11;
+                    else tmpTop++;
+                    target.style.top = `${tmpTop}px`;
+                }
+                if (tmpLeft < 0) {
+                    if (tmpLeft < -10 && tmpLeft % 2 === 0) tmpLeft += 10;
+                    else if (tmpLeft < -10 && tmpLeft % 2 !== 0) tmpLeft += 11;
+                    else tmpLeft++;
+                    target.style.left = `${tmpLeft}px`;
+                }
+                if (tmpTop === 0 && tmpLeft === 0) {
+                    clearInterval(reposition);
+                    resolve("done");
+                }
+            } else {
+                if (tmpTop > backgroundImage.top) {
+                    if (tmpTop > backgroundImage.top + 10 && tmpTop % 2 === 0) tmpTop -= 10;
+                    else if (tmpTop > backgroundImage.top + 10 && tmpTop % 2 !== 0) tmpTop -= 11;
+                    else tmpTop--;
+                    target.style.top = `${tmpTop}px`;
+                } else if (tmpTop < backgroundImage.top) {
+                    if (tmpTop < backgroundImage.top - 10 && tmpTop % 2 === 0) tmpTop += 10;
+                    else if (tmpTop < backgroundImage.top - 10 && tmpTop % 2 !== 0) tmpTop += 11;
+                    else tmpTop++;
+                    target.style.top = `${tmpTop}px`;
+                }
+                if (tmpLeft > backgroundImage.left) {
+                    if (tmpLeft > backgroundImage.top + 10 && tmpLeft % 2 === 0) tmpLeft -= 10;
+                    else if (tmpLeft > backgroundImage.top + 10 && tmpLeft % 2 !== 0) tmpLeft -= 11;
+                    else tmpLeft--;
+                    target.style.left = `${tmpLeft}px`;
+                } else if (tmpLeft < backgroundImage.left) {
+                    if (tmpLeft < backgroundImage.top - 10 && tmpLeft % 2 === 0) tmpLeft += 10;
+                    else if (tmpLeft < backgroundImage.top - 10 && tmpLeft % 2 !== 0) tmpLeft += 11;
+                    else tmpLeft++;
+                    target.style.left = `${tmpLeft}px`;
+                }
+                if (tmpTop === backgroundImage.top && tmpLeft === backgroundImage.left) {
+                    clearInterval(reposition);
+                    resolve("done");
+                }
             }
-            if (tmpLeft < 0) {
-                if (tmpLeft < -10 && tmpLeft % 2 === 0) tmpLeft += 10;
-                else if (tmpLeft < -10 && tmpLeft % 2 !== 0) tmpLeft += 11;
-                else tmpLeft++;
-                target.style.left = `${tmpLeft}px`;
-            }
-            if (tmpTop === 0 && tmpLeft === 0) clearInterval(reposition);
-        } else {
-            if (tmpTop > backgroundImage.top) {
-                if (tmpTop > backgroundImage.top + 10 && tmpTop % 2 === 0) tmpTop -= 10;
-                else if (tmpTop > backgroundImage.top + 10 && tmpTop % 2 !== 0) tmpTop -= 11;
-                else tmpTop--;
-                target.style.top = `${tmpTop}px`;
-            } else if (tmpTop < backgroundImage.top) {
-                if (tmpTop < backgroundImage.top - 10 && tmpTop % 2 === 0) tmpTop += 10;
-                else if (tmpTop < backgroundImage.top - 10 && tmpTop % 2 !== 0) tmpTop += 11;
-                else tmpTop++;
-                target.style.top = `${tmpTop}px`;
-            }
-            if (tmpLeft > backgroundImage.left) {
-                if (tmpLeft > backgroundImage.top + 10 && tmpLeft % 2 === 0) tmpLeft -= 10;
-                else if (tmpLeft > backgroundImage.top + 10 && tmpLeft % 2 !== 0) tmpLeft -= 11;
-                else tmpLeft--;
-                target.style.left = `${tmpLeft}px`;
-            } else if (tmpLeft < backgroundImage.left) {
-                if (tmpLeft < backgroundImage.top - 10 && tmpLeft % 2 === 0) tmpLeft += 10;
-                else if (tmpLeft < backgroundImage.top - 10 && tmpLeft % 2 !== 0) tmpLeft += 11;
-                else tmpLeft++;
-                target.style.left = `${tmpLeft}px`;
-            }
-            if (tmpTop === backgroundImage.top && tmpLeft === backgroundImage.left) clearInterval(reposition);
-        }
-    }, 3)
+        }, 3)
+    })
 }
 
 // set new position for image
