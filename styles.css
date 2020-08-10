@@ -855,6 +855,10 @@
     overflow: scroll;
 }
 
+.cardScrollerMain-list:hover {
+    cursor: move;
+}
+
 .cardScrollerList {
     display: flex;
     flex-direction: row-reverse;
@@ -1293,6 +1297,13 @@
 @media only screen and (min-width: 600px) {
     .masthead2Main {
         padding: 20px;
+    }
+}
+
+@media only screen and (min-width: 1200px) {
+    .masthead2Main {
+        background-position: 0% 0%;
+        background-size: 200%;
     }
 }
 
