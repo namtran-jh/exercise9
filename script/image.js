@@ -351,10 +351,25 @@ function setImagePosition(element, pos1, pos2) {
 
 // set UI Position
 function setUIPosition(element) {
-    if (tmpTop > 0) element.style.top = `0px`;
-    if (tmpTop < parseInt(imageH)) element.style.top = `${imageH}px`;
-    if (tmpLeft > 0) element.style.left = `0px`;
-    if (tmpLeft < parseInt(imageW)) element.style.left = `${imageW}px`;
+    if (tmpTop > 0) {
+        tmpTop = 0;
+        element.style.top = `0px`;
+    } else {
+        if (tmpTop < parseInt(imageH)) {
+            tmpTop = parseInt(imageH);
+            element.style.top = `${imageH}px`;
+        } else element.style.top = `${tmpTop}px`;
+    }
+
+    if (tmpLeft > 0) {
+        tmpLeft = 0;
+        element.style.left = `0px`;
+    } else {
+        if (tmpLeft < parseInt(imageW)) {
+            tmpLeft = parseInt(imageW);
+            element.style.left = `${imageW}px`;
+        } else element.style.left = `${tmpLeft}px`;
+    }
 }
 
 // switch draggableImage to the others
