@@ -340,13 +340,13 @@ function reposition(target, point) {
                     target.style.top = `${tmpTop}px`;
                 }
                 if (tmpLeft > backgroundImage.left) {
-                    if (tmpLeft > backgroundImage.top + 10 && tmpLeft % 2 === 0) tmpLeft -= 10;
-                    else if (tmpLeft > backgroundImage.top + 10 && tmpLeft % 2 !== 0) tmpLeft -= 11;
+                    if (tmpLeft > backgroundImage.left + 10 && tmpLeft % 2 === 0) tmpLeft -= 10;
+                    else if (tmpLeft > backgroundImage.left + 10 && tmpLeft % 2 !== 0) tmpLeft -= 11;
                     else tmpLeft--;
                     target.style.left = `${tmpLeft}px`;
                 } else if (tmpLeft < backgroundImage.left) {
-                    if (tmpLeft < backgroundImage.top - 10 && tmpLeft % 2 === 0) tmpLeft += 10;
-                    else if (tmpLeft < backgroundImage.top - 10 && tmpLeft % 2 !== 0) tmpLeft += 11;
+                    if (tmpLeft < backgroundImage.left - 10 && tmpLeft % 2 === 0) tmpLeft += 10;
+                    else if (tmpLeft < backgroundImage.left - 10 && tmpLeft % 2 !== 0) tmpLeft += 11;
                     else tmpLeft++;
                     target.style.left = `${tmpLeft}px`;
                 }
@@ -355,7 +355,7 @@ function reposition(target, point) {
                     resolve("done");
                 }
             }
-        }, 3)
+        }, 1)
     })
 }
 
