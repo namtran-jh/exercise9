@@ -200,4 +200,3 @@ async function card1200pxMove(reverse) {
         document.onmousemove = null;
     }
 })();
-``
