@@ -856,12 +856,47 @@
 }
 
 .cardScrollerMain-list:hover {
-    cursor: move;
+    cursor: pointer;
 }
 
 .cardScrollerList {
     display: flex;
     flex-direction: row-reverse;
+}
+
+@media only screen and (min-width: 1200px) {
+    #cardScrollerList1 {
+        display: none;
+    }
+}
+
+#cardScrollerList1-1200px {
+    display: none;
+    flex-direction: row;
+    justify-content: flex-start;
+    transition: left 1.0s ease-in-out;
+}
+
+@media only screen and (min-width: 1200px) {
+    #cardScrollerList1-1200px {
+        display: flex;
+        width: calc(100% - 50px);
+        overflow: hidden;
+    }
+}
+
+@media only screen and (min-width: 1600px) {
+    #cardScrollerList1-1200px {
+        width: calc(100% - 80px);
+    }
+}
+
+#cardScrollerList1-1200px .cardScrollerMain-cardCarousel {
+    margin: 0 20px 0 0;
+}
+
+#cardScrollerList1-1200px .cardScrollerMain-cardCarousel>.cardCarousel {
+    width: 400px;
 }
 
 .cardScrollerMain-cardCarousel {
@@ -1765,6 +1800,8 @@
 @media only screen and (min-width: 1200px) {
     .creditImage {
         padding: 120px 70px 120px 700px;
+        background-position: 0% 0%;
+        background-size: 200%;
     }
 }
 

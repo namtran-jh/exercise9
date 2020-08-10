@@ -426,7 +426,7 @@ function switchDragMode() {
 // handle drag image (top/bottom/left/right)
 function dragPicture() {
     const element = document.getElementById("masthead1Background");
-    var pos1 = 0,
+    let pos1 = 0,
         pos2 = 0,
         pos3 = 0,
         pos4 = 0;
