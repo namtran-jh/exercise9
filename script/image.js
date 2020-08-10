@@ -273,7 +273,6 @@ function resize(target, point) {
 function reposition(target, point) {
     const reposition = setInterval(function() {
         if (point) {
-            console.log(tmpTop, tmpLeft);
             if (tmpTop < 0) {
                 if (tmpTop < -10 && tmpTop % 2 === 0) tmpTop += 10;
                 else if (tmpTop < -10 && tmpTop % 2 !== 0) tmpTop += 11;
