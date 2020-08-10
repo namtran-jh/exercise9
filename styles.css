@@ -1985,7 +1985,10 @@
 @media only screen and (min-width: 1600px) {
     .footerText {
         font-size: 12px;
-        width: 60%;
+        width: 55%;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
     }
 }
 
