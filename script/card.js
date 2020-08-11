@@ -188,7 +188,7 @@ function dragCard(index) {
             pos2 = 0,
             pos3 = 0,
             pos4 = 0;
-        let posFinal = false;
+        let posFinal = null;
 
         element.onmousedown = dragMouseDown;
 
@@ -213,12 +213,15 @@ function dragCard(index) {
             pos4 = e.clientY;
             // set the image's new position
             if (pos1 > 0) posFinal = true;
+            else posFinal = false;
         }
 
         function closeDragElement() {
-            if (posFinal) card1200pxMove(index);
-            else card1200pxMove(index, true);
-            posFinal = false;
+            if (posFinal !== null) {
+                if (posFinal) card1200pxMove(index);
+                else card1200pxMove(index, true);
+                posFinal = null;
+            }
 
             // stop moving when mouse button is released
             document.onmouseup = null;
