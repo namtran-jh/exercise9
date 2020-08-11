@@ -865,12 +865,14 @@
 }
 
 @media only screen and (min-width: 1200px) {
-    #cardScrollerList1 {
+    #cardScrollerList1,
+    #cardScrollerList2 {
         display: none;
     }
 }
 
-#cardScrollerList1-1200px {
+#cardScrollerList1-1200px,
+#cardScrollerList2-1200px {
     display: none;
     flex-direction: row;
     justify-content: flex-start;
@@ -878,7 +880,8 @@
 }
 
 @media only screen and (min-width: 1200px) {
-    #cardScrollerList1-1200px {
+    #cardScrollerList1-1200px,
+    #cardScrollerList2-1200px {
         display: flex;
         width: calc(100% - 50px);
         overflow: hidden;
@@ -886,21 +889,25 @@
 }
 
 @media only screen and (min-width: 1600px) {
-    #cardScrollerList1-1200px {
+    #cardScrollerList1-1200px,
+    #cardScrollerList2-1200px {
         width: calc(100% - 80px);
     }
 }
 
-#cardScrollerList1-1200px .cardScrollerMain-cardCarousel {
+#cardScrollerList1-1200px .cardScrollerMain-cardCarousel,
+#cardScrollerList2-1200px .cardScrollerMain-cardCarousel {
     margin: 0 20px 0 0;
 }
 
-#cardScrollerList1-1200px .cardScrollerMain-cardCarousel>.cardCarousel {
+#cardScrollerList1-1200px .cardScrollerMain-cardCarousel>.cardCarousel,
+#cardScrollerList2-1200px .cardScrollerMain-cardCarousel>.cardCarousel {
     width: 350px;
 }
 
 @media only screen and (min-width: 1600px) {
-    #cardScrollerList1-1200px .cardScrollerMain-cardCarousel>.cardCarousel {
+    #cardScrollerList1-1200px .cardScrollerMain-cardCarousel>.cardCarousel,
+    #cardScrollerList2-1200px .cardScrollerMain-cardCarousel>.cardCarousel {
         width: 400px;
     }
 }

@@ -39,7 +39,7 @@ if (document.documentElement.clientWidth > 1200) {
                 document.getElementsByClassName("creditImage")[0].style.backgroundPositionY = `${parseInt(initialPositionMasthead)-1}px`;
                 direction.type = null;
             } else {
-                document.getElementsByClassName("masthead2Main")[0].style.backgroundPositionY = `${parseInt(initialPositionMasthead)-1}px`;
+                document.getElementsByClassName("masthead2Main")[0].style.backgroundPositionY = `${parseInt(initialPositionMasthead)+1}px`;
                 document.getElementsByClassName("creditImage")[0].style.backgroundPositionY = `${parseInt(initialPositionMasthead)+1}px`;
                 direction.type = null;
             }
