@@ -23,7 +23,7 @@ let zoomInInterval, zoomOutInterval, lefttopTimeout;
 let draggableImage = false;
 
 // Declare left top of background image
-const containerW = document.getElementsByClassName("mastheadMain")[0].offsetWidth,
+let containerW = document.getElementsByClassName("mastheadMain")[0].offsetWidth,
     containerH = document.getElementsByClassName("mastheadMain")[0].offsetHeight;
 let imageW = containerW - document.getElementById("masthead1Background").offsetWidth;
 let imageH = containerH - document.getElementById("masthead1Background").offsetHeight;
@@ -43,6 +43,22 @@ let imageH = containerH - document.getElementById("masthead1Background").offsetH
     }
 })();
 
+// window onresize
+window.onresize = function() {
+    if (containerW > document.getElementsByClassName("mastheadMain")[0].offsetWidth || containerH > document.getElementsByClassName("mastheadMain")[0].offsetHeight) {
+        backgroundImage.top = document.getElementsByClassName("mastheadMain")[0].offsetHeight - document.getElementById("masthead1Background").offsetHeight;
+        backgroundImage.left = document.getElementsByClassName("mastheadMain")[0].offsetWidth - document.getElementById("masthead1Background").offsetWidth;
+
+        document.getElementById("masthead1Background").style.top = `${backgroundImage.top}px`;
+        document.getElementById("masthead1Background").style.left = `${backgroundImage.left}px`;
+
+        localStorage.setItem("backgroundImage", JSON.stringify(backgroundImage));
+    }
+
+    containerH = document.getElementsByClassName("mastheadMain")[0].offsetHeight;
+    containerW = document.getElementsByClassName("mastheadMain")[0].offsetWidth;
+    updateLeftTop();
+}
 updateLeftTop();
 
 // Function update left top of background image
@@ -267,11 +283,11 @@ function zoomIn(target) {
 }
 
 function resize(target, point) {
-    console.log("d");
+    // console.log("d");
     return new Promise(resolve => {
-        console.log("e");
+        // console.log("e");
         const resize = setInterval(async function() {
-            console.log("f");
+            // console.log("f");
             if (point) {
                 if (point == 1) {
                     clearInterval(zoomInInterval);
@@ -305,11 +321,11 @@ function resize(target, point) {
 
 // reposition background image
 function reposition(target, point) {
-    console.log("a")
+    // console.log("a")
     return new Promise(resolve => {
-        console.log("b");
+        // console.log("b");
         const reposition = setInterval(function() {
-            console.log("c");
+            // console.log("c");
             if (point) {
                 if (tmpTop < 0) {
                     if (tmpTop < -10 && tmpTop % 2 === 0) tmpTop += 10;
