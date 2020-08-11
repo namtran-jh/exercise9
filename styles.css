@@ -230,7 +230,7 @@
 }
 
 @media only screen and (min-width: 600px) {
-    .masthead1Background {
+    #masthead1Background {
         width: 100%;
     }
 }

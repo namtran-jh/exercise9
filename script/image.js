@@ -46,8 +46,10 @@ let imageH = containerH - document.getElementById("masthead1Background").offsetH
 // window onresize
 window.onresize = function() {
     if (containerW > document.getElementsByClassName("mastheadMain")[0].offsetWidth || containerH > document.getElementsByClassName("mastheadMain")[0].offsetHeight) {
-        backgroundImage.top = document.getElementsByClassName("mastheadMain")[0].offsetHeight - document.getElementById("masthead1Background").offsetHeight;
-        backgroundImage.left = document.getElementsByClassName("mastheadMain")[0].offsetWidth - document.getElementById("masthead1Background").offsetWidth;
+        tmpTop = document.getElementsByClassName("mastheadMain")[0].offsetHeight - document.getElementById("masthead1Background").offsetHeight;
+        tmpLeft = document.getElementsByClassName("mastheadMain")[0].offsetWidth - document.getElementById("masthead1Background").offsetWidth;
+        backgroundImage.top = tmpTop;
+        backgroundImage.left = tmpLeft;
 
         document.getElementById("masthead1Background").style.top = `${backgroundImage.top}px`;
         document.getElementById("masthead1Background").style.left = `${backgroundImage.left}px`;
@@ -59,7 +61,6 @@ window.onresize = function() {
     containerW = document.getElementsByClassName("mastheadMain")[0].offsetWidth;
     updateLeftTop();
 }
-updateLeftTop();
 
 // Function update left top of background image
 function updateLeftTop() {
