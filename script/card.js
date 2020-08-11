@@ -9,6 +9,8 @@ let cardMoveInterval;
 // Variables of position drag
 let tmpScrollLeft = 0;
 
+let widthChange = parseInt(getComputedStyle(document.getElementsByClassName("cardScrollerMain-cardCarousel")[0]).width) + 20;
+
 card.forEach(val => {
     if (val.id === 7 || val.id <= 3)
         cardScroller1 += `
@@ -122,7 +124,7 @@ async function card1200pxMove(reverse) {
         target.scrollLeft = 0;
         await new Promise(resolve => {
             cardMove = setInterval(function() {
-                if (interval < 420) {
+                if (interval < widthChange) {
                     interval += 2;
                     target.scrollLeft += 2;
                 } else {
@@ -136,8 +138,8 @@ async function card1200pxMove(reverse) {
         target.removeChild(target.childNodes[0]);
         target.appendChild(firstChildren);
     } else {
-        interval = 420;
-        target.scrollLeft = 420;
+        interval = widthChange;
+        target.scrollLeft = widthChange;
         target.insertBefore(lastChildren, target.firstChild);
 
         await new Promise(resolve => {

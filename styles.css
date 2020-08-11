@@ -896,7 +896,13 @@
 }
 
 #cardScrollerList1-1200px .cardScrollerMain-cardCarousel>.cardCarousel {
-    width: 400px;
+    width: 350px;
+}
+
+@media only screen and (min-width: 1600px) {
+    #cardScrollerList1-1200px .cardScrollerMain-cardCarousel>.cardCarousel {
+        width: 400px;
+    }
 }
 
 .cardScrollerMain-cardCarousel {
