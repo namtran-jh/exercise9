@@ -185,9 +185,7 @@ function dragCard(index) {
 
         const element = document.getElementById(`cardScrollerList${index}-1200px`);
         let pos1 = 0,
-            pos2 = 0,
-            pos3 = 0,
-            pos4 = 0;
+            pos3 = 0;
         let posFinal = null;
 
         element.onmousedown = dragMouseDown;
@@ -197,7 +195,6 @@ function dragCard(index) {
             e.preventDefault();
             // get the mouse cursor position at startup
             pos3 = e.clientX;
-            pos4 = e.clientY;
             document.onmouseup = closeDragElement;
             // call a function whenever the cursor moves
             document.onmousemove = elementDrag;
@@ -208,9 +205,6 @@ function dragCard(index) {
             e.preventDefault();
             // calculate the new cursor position
             pos1 = pos3 - e.clientX;
-            pos2 = pos4 - e.clientY;
-            pos3 = e.clientX;
-            pos4 = e.clientY;
             // set the image's new position
             if (pos1 > 0) posFinal = true;
             else posFinal = false;
